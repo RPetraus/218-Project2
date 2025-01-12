@@ -40,7 +40,7 @@ int main() {
       printf("\nWelcome to enhanced alarm system model 218-W24");
     }
     while (driverPresent) {
-      if (passengerPresent && driverSeatbelt && passengerSeatbelt) {
+      if (driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
         alarmState2 = ON;
         greenIndicator = alarmState2;
       }
