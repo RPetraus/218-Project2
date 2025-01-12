@@ -35,6 +35,7 @@ bool alarmActivationUpdate();
 bool alarmDeactivationUpdate();
 bool areEqual();
 
+int alarmState2;
 //=====[Main function, the program entry point after power on or reset]========
 
 int main() {
@@ -45,25 +46,46 @@ int main() {
       printf("\nWelcome to enhanced alarm system model 218-W24");
     }
     while (driverPresent) {
-      if (alarmDeactivationUpdate()) {
-        greenIndicator = ON;
+      if ( driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
+          alarmState = OFF;
+          alarmLed = alarmState;
+          alarmState2 = ON;
+        greenIndicator = alarmState2;
+      }
+      else {
+          alarmState2 = OFF;
+        greenIndicator = alarmState2;
       }
 
       if (ignitionButton) {
-        if (alarmDeactivationUpdate()) {
+        if (ignitionButton && driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
           printf("\nEngine started.");
           greenIndicator = OFF;
           blueIndicator = ON;
-
-          while (true) {
-          } // keeps the code stuck here
-        } else {
+          while (true) {} // keeps the code stuck here
+        } 
+        
+        else {
           printf("\nIgnition inhibited");
           printf("\nReasons:"); // needs work to show reasons
-              alarmActivationUpdate();
+              alarmState = ON;
+              alarmLed = alarmState;
+    if (!driverPresent) {
+        printf("\nDriver not present.");
+    }
+    if (!passengerPresent) {
+        printf("\nPassenger not present.");
+    }
+    if (!driverSeatbelt) {
+        printf("\nDriver Seatbelt not fastened.");
+    }
+    if (!passengerSeatbelt) {
+        printf("\nPassenger Seatbelt not fastened.");
+    }
+  
 
-          while (true) {
-          } // keeps the code stuck here
+  
+          while (true) {} // keeps the code stuck here
         }
       }
     }
@@ -92,7 +114,7 @@ bool alarmActivationUpdate() {
     ignitionCheck[2] = driverSeatbelt;
     ignitionCheck[3] = passengerSeatbelt;
 
-  if (ignitionButton && !areEqual()) {
+  if (ignitionButton && !(driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt)) {
     alarmState = ON;
     if (!driverPresent) {
         printf("\nDriver not present.");
@@ -118,7 +140,7 @@ bool alarmDeactivationUpdate() {
     ignitionCheck[2] = driverSeatbelt;
     ignitionCheck[3] = passengerSeatbelt;
 
-  if (ignitionButton && areEqual()) {
+  if (ignitionButton && driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
     alarmState = OFF;
   }
 
