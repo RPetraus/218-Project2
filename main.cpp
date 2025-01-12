@@ -29,22 +29,6 @@ bool alarmState2 = OFF;
 void inputsInit();
 void outputsInit();
 
-//=====[Implementations of public functions]===================================
-
-void inputsInit() {
-  driverPresent.mode(PullDown);
-  passengerPresent.mode(PullDown);
-  driverSeatbelt.mode(PullDown);
-  passengerSeatbelt.mode(PullDown);
-  ignitionButton.mode(PullDown);
-}
-
-void outputsInit() {
-  alarmLed = OFF;
-  blueIndicator = OFF;
-  greenIndicator = OFF;
-}
-
 //=====[Main function, the program entry point after power on or reset]========
 
 int main() {
@@ -98,4 +82,20 @@ int main() {
       }
     }
   }
+}
+
+//=====[Implementations of public functions]===================================
+
+void inputsInit() {
+  driverPresent.mode(PullDown);
+  passengerPresent.mode(PullDown);
+  driverSeatbelt.mode(PullDown);
+  passengerSeatbelt.mode(PullDown);
+  ignitionButton.mode(PullDown);
+}
+
+void outputsInit() {
+  alarmLed = OFF;
+  blueIndicator = OFF;
+  greenIndicator = OFF;
 }
