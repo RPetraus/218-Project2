@@ -17,17 +17,35 @@ DigitalIn ignitionButton(D6);
 
 DigitalOut greenIndicator(LED1);
 DigitalOut alarmLed(LED3); // change to D7 and hook up alarm later
+DigitalInOut sirenPin(PE_10);
 DigitalOut blueIndicator(LED2);
 
 //=====[Declaration and initialization of public global variables]=============
 
-bool alarmState = OFF;
 bool alarmState2 = OFF;
 
 //=====[Declarations (prototypes) of public functions]=========================
 
 void inputsInit();
 void outputsInit();
+
+//=====[Implementations of public functions]===================================
+
+void inputsInit() {
+  driverPresent.mode(PullDown);
+  passengerPresent.mode(PullDown);
+  driverSeatbelt.mode(PullDown);
+  passengerSeatbelt.mode(PullDown);
+  ignitionButton.mode(PullDown);
+  sirenPin.mode(OpenDrain);
+  sirenPin.input();
+}
+
+void outputsInit() {
+  alarmLed = OFF;
+  blueIndicator = OFF;
+  greenIndicator = OFF;
+}
 
 //=====[Main function, the program entry point after power on or reset]========
 
@@ -39,8 +57,8 @@ int main() {
     if (driverPresent) {
       printf("\nWelcome to enhanced alarm system model 218-W24");
     }
-    while (driverPresent || passengerPresent || driverSeatbelt || passengerSeatbelt) {
-      if (driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
+    while (driverPresent) {
+      if (passengerPresent && driverSeatbelt && passengerSeatbelt) {
         alarmState2 = ON;
         greenIndicator = alarmState2;
       }
@@ -62,8 +80,8 @@ int main() {
         else {
           printf("\nIgnition inhibited");
           printf("\nReasons:"); // needs work to show reasons
-          alarmState = ON;
-          alarmLed = alarmState;
+          sirenPin.output();                                     
+          sirenPin = LOW;
           if (!driverPresent) {
             printf("\nDriver not present.");
           }
@@ -81,21 +99,8 @@ int main() {
         }
       }
     }
+    alarmState2 = OFF;
+    greenIndicator = alarmState2;
+    // sirenPin.input();
   }
-}
-
-//=====[Implementations of public functions]===================================
-
-void inputsInit() {
-  driverPresent.mode(PullDown);
-  passengerPresent.mode(PullDown);
-  driverSeatbelt.mode(PullDown);
-  passengerSeatbelt.mode(PullDown);
-  ignitionButton.mode(PullDown);
-}
-
-void outputsInit() {
-  alarmLed = OFF;
-  blueIndicator = OFF;
-  greenIndicator = OFF;
 }
