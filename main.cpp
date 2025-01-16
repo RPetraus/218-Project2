@@ -71,7 +71,7 @@ if all buttons are pressed the engine will start
 */
 void ignitionCase() {
   if (ignitionButton) {
-    if (passengerPresent && driverSeatbelt && passengerSeatbelt) {
+    if (driverPresent && passengerPresent && driverSeatbelt && passengerSeatbelt) {
       uartUsb.write("\nEngine started.", 15);
 
       greenIndicator = OFF;
