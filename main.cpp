@@ -55,6 +55,7 @@ int main() {
   while (true) {
     driverIntroduction();
     drivingState();
+    ignitionCase();
   }
 }
 
@@ -120,6 +121,4 @@ void drivingState() {
   else {
     greenIndicator = OFF;
   }
-
-  ignitionCase();
 }
