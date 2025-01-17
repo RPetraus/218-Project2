@@ -3,10 +3,6 @@
 #include "arm_book_lib.h"
 #include "mbed.h"
 
-//=====[Defines]===============================================================
-
-#define NUMBER_OF_KEYS 4
-
 //=====[Declaration and initialization of public global objects]===============
 
 DigitalIn driverPresent(D2);
