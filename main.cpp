@@ -37,11 +37,11 @@ void inputsInit() {
   driverSeatbelt.mode(PullDown);
   passengerSeatbelt.mode(PullDown);
   ignitionButton.mode(PullDown);
-  sirenPin.mode(OpenDrain);
-  sirenPin.input();
 }
 
 void outputsInit() {
+  sirenPin.mode(OpenDrain);
+  sirenPin.input();
   blueIndicator = OFF;
   greenIndicator = OFF;
 }
