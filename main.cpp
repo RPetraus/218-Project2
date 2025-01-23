@@ -1,3 +1,5 @@
+// test2
+
 // This program simulates an enhanced vehicle alarm system with various safety features.
 // It uses input signals to detect driver and passenger presence, seatbelt fastening,
 // and ignition button presses, and outputs status via LEDs and UART messages.
